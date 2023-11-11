@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>事件修饰符</title>
+        <!-- 引入vue -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .dome1{
+            height: 50px;
+            background-color: skyblue;
+        }
+
+        .box1{
+           padding: 5px;
+            background-color: skyblue;
+        }
+        .box2{
+           padding: 5px;
+            background-color: orange;
+        }
+        .list{
+            height: 200px;
+            width: 200px;
+            background-color: aquamarine;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+
+    <body>
+    <div id="root">
+
+        <!-- 
+            Vue中的事件修饰符:
+            1.prevent:阻止默认事件 (常用) :
+            2.stop:阻止事件冒泡(常用) :
+            3.once: 事件只他发一次(常用) :
+            4.capture:使用事件的捕获校式:
+            5.self: 只有event.target是当前操作的元素时才触发事件;
+            6.passive:事件的默认行为立即执行，无需等待事件回调执行完毕.
+
+         -->
+
+        <h2>欢迎来到{{name}}学习</h2>
+        <!-- 阻止默认事件（常用） -->
+       <a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+       <!-- 阻止事件冒泡（常用） -->
+       <div class="dome1" @click="showInfo">
+        <!-- <button @click.stop="showInfo"> 点我提示信息</button> -->
+        <!-- 先阻止冒泡，在阻止默认事件 修饰符可以连续写 -->
+        <a href="http://www.atguigu.com" @click.stop.prevent="showInfo">点我提示信息</a>
+       </div>
+       <!-- 事件只触发一次（常用） -->
+       <button @click.once="showInfo"> 点我提示信息</button>
+       <!-- 使用事件的捕获模式 -->
+       <div class="box1" @click.capture="showMsg(1)">
+        div1
+        <div class="box2" @click="showMsg(2)">
+            div2
+        </div>
+       </div>
+       <!-- 只有event.target是当前操作元素时才触发事件 -->
+       <div class="dome1" @click.self="showInfo">
+        <button @click="showInfo"> 点我提示信息</button>
+       </div>
+       <!-- scroll 滚动  wheel 鼠标滚轮 滚动 事件 -->
+       <!-- 6.passive:事件的默认行为立即执行，无需等待事件回调执行完毕. -->
+       <ul @scroll.passive="demo" class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+
+       </ul>
+
+    </div>
+
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;//阻止vue在启动时产生提示
+
+      const vm =     new Vue({ 
+      el: '#root',
+      data:{
+        name:'尚硅谷',
+        },
+        methods:{
+            showInfo(e){  
+                // e.preventDefault()//阻止默认事件
+                // e.stopPropagation()//阻止事件冒泡
+                alert('同学你好')
+                // console.log(e.target)
+            },
+            showMsg(msg){  
+                console.log(msg)
+            },
+            demo(){  
+                for (let index = 0; index < 100000; index++) {
+                    console.log('@')
+                    
+                }
+                console.log('msg')
+            },
+           
+        }
+      });
+
+    </script>
+        
+    </body>
+</html>
