@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>6Vue监测数据改变的原理</title>
+        <!-- 引入vue -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+
+    <body>
+     
+    <div id="root">
+        
+      <h2>学习名称:{{name}}</h2>
+      <h2>学习名称:{{address}}</h2>
+        
+        
+    </div>
+
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;//阻止vue在启动时产生提示
+     
+
+      const vm =     new Vue({ 
+      el: '#root',
+      data:{
+        name:'尚硅谷',
+        address:'北京'
+        
+      },
+     
+    
+     
+      });
+
+
+      // let arr = [2,5,6,4,3,1];
+      //     arr.sort((a,b)=>{
+      //       return b -a
+      //     })
+      //     console.log(arr)
+    </script>
+        
+    </body>
+</html>
