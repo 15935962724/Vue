@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>过滤器</title>
+        <!-- 引入vue -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+        <script type="text/javascript" src="../js/dayjs.min.js"></script>
+    </head>
+
+    <body>
+        <div id="root">
+            <h2>显示格式化后的时间</h2>
+            <!-- 计算属性实现 -->
+            <h3>现在是：{{fimTime}}</h3>
+            <!-- methods 实现    -->
+            <h3>现在是：{{getFimTime()}}</h3>
+
+            <h3>现在是：{{time | timeFormater}}</h3>
+        </div>
+        
+        
+        
+
+        
+    <script type="text/javascript">
+        Vue.config.productionTip = false;//阻止vue在启动时产生提示
+      const vm =     new Vue({ 
+      el: '#root',
+      data:{
+            time:1700618591183
+
+      },
+       computed: {
+        fimTime() {
+           return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+        },
+       
+       },  
+       methods: {
+        getFimTime() {
+            return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+        },
+       },
+       filters:{
+        timeFormater(value){
+
+        }
+       }
+    });
+
+    </script>
+    </body>
+</html>
