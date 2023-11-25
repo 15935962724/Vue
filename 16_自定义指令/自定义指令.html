@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>自定义指令</title>
+        <!-- 引入vue -->
+        <script type="text/javascript" src="../js/vue.js"></script>
+        <script type="text/javascript" src="../js/dayjs.min.js"></script>
+    </head>
+
+    <body>
+
+        <!-- 
+             需求1:定义v-big指个lv-text功能类似 但会也绑定的数值放大10倍。
+             需求2:定义一个v-fbind和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点
+         -->
+         <!-- 
+            Vue模板语法有2人类:
+            1.插值语法:
+                功能:用于解析标签体内容。
+                写法: {{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性.
+            2.指令语法:
+                功能: 用于解析标签(包括: 标签属性、标签体内容、绑定事件.....)举例: v-bind:href="xxx”或 简写为 :href="xxx"，xxx同样要写js表达式，且可以直接读取到data中的所有属性。
+                备注: Vue中有很多的指令，且形式都是: v-????，此处我们只是拿v-bind举个例子.
+
+        自定义指令总结:
+        一、定义语法:
+        (1).局部指令:
+             new Vue({new Vue(fdirectives:{指令名:配置对象}或new Vue(directives{指令名：回调函数}) 
+        (2).全局指令:
+             Vue.directive(指令名,配置对象) 或new Vue(directives{指令名：回调函数})
+        二 、配置对象中常用的3个回调:
+            (1).bind:指令与元素成功绑定时调用。
+            (2).inserted: 指令所在元素被插入页面时调用。
+            (3).update:指令所在模板结构被重新解析时调用。
+        三 、备注:
+        1.指令定义时不加v-，但使用时要加v-;
+        2.指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。
+
+
+          -->
+        <div id="root">
+            <h2>{{name}}</h2>
+             <h2>当前的n值是:<span v-text="n"></span></h2>
+             <h2>放大10倍后的n值是:<span v-big="n"></span></h2>
+             <h2>放大10倍后的n值是:<span v-big-number="n"></span></h2>
+             <button @click="n++">点我n+1</button>
+             <br/>
+             <input type="text" v-fbind:value="n">
+        </div>
+       
+        <div id="root2">
+             <input type="text" v-fbind:value="x">
+        </div>
+
+        
+    <script type="text/javascript">
+        Vue.config.productionTip = false;//阻止vue在启动时产生提示
+        //定义全局指令
+        Vue.directive('fbind',{
+                //指令与元素绑定时 （一上来）
+                bind (el, binding, vnode) {
+                    el.value = binding.value 
+                },
+                //指令与元素插入页面时
+                inserted (el, binding, vnode) {
+                    el.focus()
+                },
+                //指令所在的模板被重新解析时
+                update (el, binding, vnode, oldVnode) {
+                    el.value = binding.value 
+                    el.focus()
+                },
+            })
+
+            // Vue.directive('big',function(element,binding){
+            //     element.innerText = binding.value * 10
+            // })
+
+        new Vue({ 
+        el: '#root',
+        data: {
+            name:'尚硅谷',
+            n:1,
+           
+        },
+        directives: {
+            //big函数何时会被调用？1、指令与元素成功绑定时2.指令所在的模板被重新解析时。
+            big(element,binding){
+                element.innerText = binding.value * 10
+            },
+            'big-number'(element,binding){
+                element.innerText = binding.value * 10
+            },
+            
+
+            // fbind(element,binding){
+            //     element.value = binding.value 
+            //     element.focus()
+            // },
+            fbind:{
+                //指令与元素绑定时 （一上来）
+                bind (el, binding, vnode) {
+                    el.value = binding.value 
+                },
+                //指令与元素插入页面时
+                inserted (el, binding, vnode) {
+                    el.focus()
+                },
+                //指令所在的模板被重新解析时
+                update (el, binding, vnode, oldVnode) {
+                    el.value = binding.value 
+                    el.focus()
+                },
+            }
+            
+            
+        },
+        });
+        new Vue({ 
+        el: '#root2',
+        data: {
+            x:1,
+           
+        },
+        directives: {
+            //big函数何时会被调用？1、指令与元素成功绑定时2.指令所在的模板被重新解析时。
+            big(element,binding){
+                element.innerText = binding.value * 10
+            },
+            'big-number'(element,binding){
+                element.innerText = binding.value * 10
+            },
+            
+
+            // fbind(element,binding){
+            //     element.value = binding.value 
+            //     element.focus()
+            // },
+            // fbind:{
+            //     //指令与元素绑定时 （一上来）
+            //     bind (el, binding, vnode) {
+            //         el.value = binding.value 
+            //     },
+            //     //指令与元素插入页面时
+            //     inserted (el, binding, vnode) {
+            //         el.focus()
+            //     },
+            //     //指令所在的模板被重新解析时
+            //     update (el, binding, vnode, oldVnode) {
+            //         el.value = binding.value 
+            //         el.focus()
+            //     },
+            // }
+            
+            
+        },
+        });
+
+    </script>
+    </body>
+</html>
