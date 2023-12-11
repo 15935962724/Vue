@@ -36,7 +36,17 @@
 
     <body>
        
-
+        <!-- 
+            绑定样式:
+            1.class样式
+                写法:class="xxx”xxx可以是字符中、对象、数组。
+                    字符串写法适用于:类名不确定，要动态获取。
+                    对象写法适用于:要绑定多个样式，个数不确定，名宁也不确定。
+                    数组写法适用于:要绑定多个样式，个数确定，名字也确定，但不确定用不用,
+            2.style样式
+                :style="{fontsize: xxx]"其中xxx是动态值。
+                :style="[a,b]"其中a、b是子式对象
+         -->
     <div id="root">
         <!-- 绑定class样式 -- 字符串写法，适用于：样式的类名不确定，需要动态指定 -->
         <div class="basic" :class="mood" @click = 'changeMood'>{{name}}</div><br>
