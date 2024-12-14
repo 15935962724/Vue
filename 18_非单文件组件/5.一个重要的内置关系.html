@@ -15,20 +15,22 @@
          -->
       
         <div id="root">
+            <school></school>
         </div>
         
     <script type="text/javascript">
         Vue.config.productionTip = false;//阻止vue在启动时产生提示
-       
+        Vue.prototype.x = 99;
 
           //定义school组件
           const school = Vue.extend({
-            nanme:'school',
+            name:'school',
             template:
             `
             <div>
                 <h2>学校名称：{{name}}</h2>
                 <h2>学校地址：{{address}}</h2>
+                <button @click='showX'>点我输入x</button>
             </div>
             `,
             data(){
@@ -38,14 +40,21 @@
 
                 }
             },
+            methods: {
+                showX(){
+                    console.log(this.x)
+                }
+            },
             
         })
 
-           new Vue({
+        //创建一个vm
+        const vm = new Vue({
             el:'#root',
             data:{
                 msg:'你好'
-            }
+            },
+            components:{school}
 
            })
 
